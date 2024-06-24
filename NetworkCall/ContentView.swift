@@ -11,13 +11,13 @@ struct ContentView: View {
     @State private var user: GitHubUser?
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 12) {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Let's do a network call")
             if let user {
-                VStack {
+                VStack(alignment: .leading, spacing: 12) {
                     Text(user.login)
                     Text(user.bio)
                     Image(user.avatarUrl)
@@ -38,7 +38,7 @@ struct ContentView: View {
         let endpoint = "https://api.github.com/users/sallen0400"
         guard let url = URL(string: endpoint) else { throw GHError.invalidUrl }
 
-        let (data, response) = try await URLSession.shared.data(from: url) // see the Tuple is of data and response
+        let (data, response) = try await URLSession.shared.data(from: url) // note the Tuple is of data and response
 
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw GHError.invalidResponse }
 
