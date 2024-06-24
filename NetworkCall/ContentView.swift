@@ -36,15 +36,11 @@ struct ContentView: View {
     
     func getUser() async throws -> GitHubUser {
         let endpoint = "https://api.github.com/users/sallen0400"
-        guard let url = URL(string: endpoint) else {
-            throw GHError.invalidUrl
-        }
+        guard let url = URL(string: endpoint) else { throw GHError.invalidUrl }
 
         let (data, response) = try await URLSession.shared.data(from: url) // see the Tuple is of data and response
 
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw GHError.invalidResponse
-        }
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw GHError.invalidResponse }
 
         do {
             let decoder = JSONDecoder()
